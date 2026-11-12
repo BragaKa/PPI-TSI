@@ -1,6 +1,7 @@
 from api.serializers import FundoImobiliarioSerializer
 from rest_framework import viewsets, permissions
 from api.models import FundoImobiliario
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class FundoImobiliarioViewSet(viewsets.ModelViewSet):
@@ -25,3 +26,6 @@ class FundoImobiliarioViewSet(viewsets.ModelViewSet):
     # Restringe o acesso aos endpoints. Neste caso, apenas usuários autenticados
     # (logados) podem visualizar, criar, editar ou excluir os dados.
     permission_classes = [permissions.IsAuthenticated]
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['codigo', 'setor']
