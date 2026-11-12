@@ -14,6 +14,7 @@ class FundoImobiliario(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         null=False,
+        editable=False,
         blank=True)
     
     codigo = models.CharField(
