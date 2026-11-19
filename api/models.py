@@ -50,4 +50,8 @@ class FundoImobiliario(models.Model):
         null=False,
         blank=False,
         default=0)
-    
+ 
+    data_referencia = models.DateField(
+        null=True,
+        blank=True)
+

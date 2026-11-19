@@ -129,3 +129,46 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# Django REST Framework
+# https://www.django-rest-framework.org/api-guide/settings/
+#
+# Configurações GLOBAIS da API: valem para todas as Views/ViewSets do projeto,
+# a menos que a própria View as sobrescreva (ex.: permission_classes na View).
+
+REST_FRAMEWORK = {
+    # --- Paginação ---------------------------------------------------------
+    # Classe de paginação aplicada a todas as listagens. PageNumberPagination
+    # usa ?page=N e devolve o envelope: count, next, previous e results.
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # Quantidade de registros por página. Sem PAGE_SIZE a paginação fica
+    # desativada, mesmo com a classe definida acima.
+    'PAGE_SIZE': 5,
+
+    # --- Autenticação ------------------------------------------------------
+    # Define COMO o cliente prova quem é (identifica o usuário da requisição).
+    # Os esquemas são tentados na ordem em que aparecem na lista.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # Cookie de sessão do Django: é o que o login em /api-auth/login/
+        # (Browsable API) utiliza.
+        'rest_framework.authentication.SessionAuthentication',
+        # Cabeçalho "Authorization: Basic <usuario:senha em base64>": útil
+        # para testar com curl/Postman. Em produção, só usar com HTTPS.
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+
+    # --- Permissões --------------------------------------------------------
+    # Define O QUE o cliente identificado pode fazer. Esta é a regra padrão
+    # ("segura por padrão"): toda View exige usuário autenticado. Uma View
+    # pode substituí-la declarando permission_classes na própria classe.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+
+    # --- Datas -------------------------------------------------------------
+    # Formatos aceitos NA ENTRADA (POST/PUT/PATCH) por campos DateField do
+    # serializer. Aqui: dia/mês/ano (padrão brasileiro) e ISO 8601 (AAAA-MM-DD).
+    # Observação: no DRF esta chave vive dentro de REST_FRAMEWORK; o
+    # DATE_INPUT_FORMATS "solto" do Django vale apenas para formulários Django.
+    'DATE_INPUT_FORMATS': ['%d/%m/%Y', 'iso-8601'],
+}

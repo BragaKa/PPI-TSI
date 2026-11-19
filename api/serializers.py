@@ -23,5 +23,6 @@ class FundoImobiliarioSerializer(serializers.ModelSerializer):
             'dividend_yield_medio_12m',
             'vacancia_financeira',
             'vacancia_fisica',
-            'quantidade_ativos'
+            'quantidade_ativos',
+            'data_referencia'
         ]
